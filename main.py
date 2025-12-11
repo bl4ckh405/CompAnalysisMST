@@ -14,8 +14,8 @@ def main():
     is_valid=validation_results(y_values, expected_checksum)
 
     if not is_valid:
-        print("ERROR: Data validation failed! Checksum mismatch.")
-        print("Aborting execution.")
+        print("Data validation failed! Checksum mismatch.")
+        print("Stopping!!!")
         return
 
     print("Requirement 2: Populate point data")
@@ -23,6 +23,25 @@ def main():
     print("Coordinates:", coordinates)
     points=[Point(x,y) for x,y in coordinates]
     print(f"Created {len(points)} Point objects") 
+
+    print("Requirement 3: Find neighbors within distance <= 20")
+    max_distance=20
+    total_neighbors=0
+    neighbors={}
+    for point in points:
+        neighbors[point]=[]
+        for other_point in points:
+            if point != other_point:
+                distance=point.distance_to(other_point)
+                if distance <= max_distance:
+                    neighbors[point].append(other_point)
+                    total_neighbors+=1
+
+    print("Neighbors:")
+    print(f"Total neighbors: {total_neighbors}")
+    
+    # for point, neighbor_list in neighbors.items():
+    #     print(f"{point}: {neighbor_list}")
 
 
 

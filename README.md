@@ -7,8 +7,6 @@ A Python-based computational analysis project for data validation and processing
 - [Installation](#installation)
 - [Virtual Environment Setup](#virtual-environment-setup)
 - [Running the Project](#running-the-project)
-- [Project Structure](#project-structure)
-- [Troubleshooting](#troubleshooting)
 
 ## Prerequisites
 
