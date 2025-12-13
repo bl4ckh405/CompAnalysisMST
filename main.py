@@ -3,6 +3,10 @@
 from test_data import get_coordinates, get_y_values, get_expected_checksum
 from data_validator import validation_results
 from points import Point
+from graph import Graph
+from mst import kruskal_mst, calculate_mst_weight, verify_mst
+from visualizer import generate_svg, generate_detailed_svg
+
 
 
 def main():
@@ -43,6 +47,37 @@ def main():
     # for point, neighbor_list in neighbors.items():
     #     print(f"{point}: {neighbor_list}")
 
+
+    print("Requirement 4: Building graph...")
+    graph = Graph()
+    graph.build_from_points(points, max_distance)
+    print(f"Graph constructed")
+    print(f"  Vertices: {graph.get_vertex_count()}")
+    print(f"  Edges: {graph.get_edge_count()}")
+    print()
+
+
+    print("Requirement 5: Computing Minimum Spanning Tree (Kruskal's Algorithm)...")
+    mst_edges = kruskal_mst(graph)
+    mst_weight = calculate_mst_weight(mst_edges)
+    is_valid_mst, validation_msg = verify_mst(mst_edges, graph.get_vertex_count())
+    
+    print(f"  MST computed successfully")
+    print(f"  MST edges: {len(mst_edges)}")
+    print(f"  Total MST weight: {mst_weight:.2f}")
+    print(f"  Validation: {validation_msg}")
+    print()
+
+
+    print("Requirement 6: Generating SVG visualizations...")
+    
+    # Generate main MST visualization
+    generate_svg(points, mst_edges, 'mst_output.svg')
+    
+    # Generate detailed comparison (all edges vs MST)
+    generate_detailed_svg(points, graph.edges, mst_edges, 'mst_detailed.svg')
+    
+    print()
 
 
 if __name__ == "__main__":

@@ -8,6 +8,18 @@ class Point:
     def distance_to(self, other):
         return math.sqrt((self.x - other.x) ** 2 + (self.y - other.y) ** 2)
 
+    def find_neighbors(self, points, max_distance=20):
+
+        self.neighbors = []
+        
+        for point in points:
+            if point is not self:  # Don't include the point itself
+                dist = self.distance_to(point)
+                if 0 < dist <= max_distance:
+                    self.neighbors.append((point, dist))
+        
+        return self.neighbors
+
     def __str__(self):
         # Formatted string representation of coordinates
         return f"({self.x}, {self.y})"
